@@ -7,7 +7,7 @@
 
 <p>
   <strong>Price:</strong>
-  <%= @product.price %>
+  <%= number_to_currency(@product.price/100) %>
 </p>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
