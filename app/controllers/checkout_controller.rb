@@ -5,10 +5,7 @@ class CheckoutController < ApplicationController
       @session = Stripe::Checkout::Session.create({
         customer: current_user.stripe_customer_id,
         line_items: [{
-          # TODO: replace this with the `price` of the product you want to sell
-          name: product.name,
-          amount: product.price,
-          currency: 'usd',
+          price: product.stripe_price_id,
           quantity: 1,
         }],
         payment_method_types: [
