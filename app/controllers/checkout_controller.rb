@@ -3,6 +3,7 @@ class CheckoutController < ApplicationController
   def create
     product = Product.find(params[:id])
       @session = Stripe::Checkout::Session.create({
+        customer: current_user.stripe_customer_id,
         line_items: [{
           # TODO: replace this with the `price` of the product you want to sell
           name: product.name,
