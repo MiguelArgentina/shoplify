@@ -35,3 +35,23 @@
 <br>
 
 <%= link_to 'New Product', new_product_path %>
+<hr>
+<% if params[:session_id].present? %>
+  <% session_id = params[:session_id] %>
+  <% @session = Stripe::Checkout::Session.retrieve(session_id) %>
+  <% @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)%>
+  <% @session_with_expand = Stripe::Checkout::Session.retrieve({
+                                                                 id: session_id,
+                                                                 expand: %w[payment_intent line_items]
+                                                               }) %>
+  <hr>
+  <%= @session_with_expand.line_items.data[0] %>
+  <hr>
+  <% @session_with_expand.line_items.data.each do |line_item| %>
+    <%= line_item.description %>
+    <br>
+    <%= line_item.price.id %>
+    <br>
+    <%= line_item.price.product %>
+  <% end %>
+<% end %>
