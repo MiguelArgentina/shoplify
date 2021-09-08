@@ -1,13 +1,10 @@
 class CheckoutController < ApplicationController
 
   def create
-    product = Product.find(params[:id])
+
     @session = Stripe::Checkout::Session.create({
                                                   customer: current_user.stripe_customer_id,
-                                                  line_items: [{
-                                                    price: product.stripe_price_id,
-        quantity: 1,
-                                                  }],
+                                                  line_items: @cart.collect { |item| item.to_builder.attributes! },
                                                   payment_method_types: [
                                                     'card',
                                                   ],

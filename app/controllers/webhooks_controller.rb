@@ -25,12 +25,16 @@ class WebhooksController < ApplicationController
     case event.type
     when 'checkout.session.completed'
       session_id = event.data.object.id
+
       session_with_expand =
         Stripe::Checkout::Session.retrieve({ id: session_id,
                                              expand: %w[payment_intent line_items] })
       session_with_expand.line_items.data.each do |line_item|
         @product = Product.find_by(stripe_product_id: line_item.price.product)
-        @product.increment!(:sales_count)
+        if event.data.payment_status == 'paid'
+          @cart = []
+          @product.increment!(:sales_count)
+        end
       end
 
     end

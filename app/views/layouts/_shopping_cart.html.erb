@@ -1,6 +1,43 @@
 <h1>Shopping Cart</h1>
-<%= "No items" unless @cart.size > 0 %>
-<% @cart.each do |product| %>
-  <%= product.name %>
+
+<% if @cart.size > 0 %>
+<table>
+  <thead>
+  <tr>
+    <th>Product</th>
+    <th>Price</th>
+    <th>Quantity</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @cart.each do |product| %>
+    <tr>
+    <td><%= product.name %></td>
+      <td><%= number_to_currency(product.price/100) %></td>
+      <td><%= 1 %></td>
+    </tr>
+  <% end %>
+
+    <tr>
+      <td>Total</td>
+      <td>
+
+        <%= number_to_currency(@cart.map {|s| s.price}.reduce(0, :+)/100) %>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
   <br>
+  <%= button_to 'Buy now!', checkout_index_path, method: :post, remote: true, data: { disable_with: "Processing..." } %>
+<% else %>
+  <%= "No items" %>
 <% end %>
+<br>
