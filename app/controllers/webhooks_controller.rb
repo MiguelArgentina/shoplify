@@ -31,7 +31,7 @@ class WebhooksController < ApplicationController
                                              expand: %w[payment_intent line_items] })
       session_with_expand.line_items.data.each do |line_item|
         @product = Product.find_by(stripe_product_id: line_item.price.product)
-        if event.data.payment_status == 'paid'
+        if event.data.object.payment_status == 'paid'
           @cart = []
           @product.increment!(:sales_count)
         end
