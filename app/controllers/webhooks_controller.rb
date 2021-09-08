@@ -32,7 +32,6 @@ class WebhooksController < ApplicationController
       session_with_expand.line_items.data.each do |line_item|
         @product = Product.find_by(stripe_product_id: line_item.price.product)
         if event.data.object.payment_status == 'paid'
-          session.delete(:cart)
           @product.increment!(:sales_count)
         end
       end
