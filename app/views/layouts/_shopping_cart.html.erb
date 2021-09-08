@@ -1,0 +1,6 @@
+<h1>Shopping Cart</h1>
+<%= "No items" unless @cart.size > 0 %>
+<% @cart.each do |product| %>
+  <%= product.name %>
+  <br>
+<% end %>
