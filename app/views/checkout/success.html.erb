@@ -1,0 +1,12 @@
+
+<hr>
+<h1>Success</h1>
+  <%= @session_with_expand.line_items.data[0] %>
+  <hr>
+  <% @session_with_expand.line_items.data.each do |line_item| %>
+    <%= line_item.description %>
+    <br>
+    <%= line_item.price.id %>
+    <br>
+    <%= line_item.price.product %>
+  <% end %>
