@@ -2,3 +2,30 @@
 <hr>
 <h1>Success</h1>
 <p>Thanks for your purchase!</p>
+<br>
+<p>You bought:</p>
+<br>
+
+<table>
+  <thead>
+  <tr>
+    <th>Quantity</th>
+    <th>Product</th>
+    <th>Total</th>
+    <th>Currency</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @purchased_items.each do |item| %>
+    <tr>
+      <td><%= item[:quantity] %></td>
+      <td><%= item[:product_name] %></td>
+      <td><%= number_to_currency(item[:amount]/100) %></td>
+      <td><%= item[:currency] %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+

@@ -21,11 +21,22 @@ class CheckoutController < ApplicationController
   end
 
   def success
-
+    @purchased_items = []
+    session_id = params[:session_id]
+    session_with_expand =
+      Stripe::Checkout::Session.retrieve({ id: session_id,
+                                           expand: %w[payment_intent line_items] })
+    session_with_expand.line_items.data.each_with_index do |line_item, index|
+      line_item_data = {}
+      line_item_data.merge!({product_name: line_item.description})
+      line_item_data.merge!({quantity: line_item.quantity})
+      line_item_data.merge!({amount: line_item.amount_total})
+      line_item_data.merge!({currency: line_item.currency})
+      @purchased_items << line_item_data
+    end
   end
 
   def failure
   end
-
 
 end
