@@ -19,6 +19,7 @@ class CheckoutController < ApplicationController
 
   def success
     if params[:session_id].present?
+      session.delete(:cart)
       @purchased_items = []
       session_id = params[:session_id]
       session_with_expand =
