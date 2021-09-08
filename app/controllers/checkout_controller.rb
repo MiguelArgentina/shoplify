@@ -21,28 +21,11 @@ class CheckoutController < ApplicationController
   end
 
   def success
-    session_id = params[:session_id]
-    session = get_session_id(session_id)
-    session_with_expand =
-      Stripe::Checkout::Session.retrieve({ id: session_id,
-                                           expand: %w[payment_intent line_items] })
-    session_with_expand.line_items.data.each do |line_item|
-      @product = Product.find_by(stripe_product_id: line_item.price.product)
-      @product.increment!(:sales_count)
-    end
+
   end
 
   def failure
   end
 
-  private
-  # Use callbacks to share common setup or constraints between actions.
-  def get_session_id(session_id)
-    Stripe::Checkout::Session.retrieve(session_id)
-  end
 
-  # Only allow a list of trusted parameters through.
-  def product_params
-    params.permit(:session_id)
-  end
 end
