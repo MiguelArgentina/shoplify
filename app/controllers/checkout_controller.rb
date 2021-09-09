@@ -5,6 +5,7 @@ class CheckoutController < ApplicationController
     @session = Stripe::Checkout::Session.create({
                                                   customer: current_user.stripe_customer_id,
                                                   line_items: @cart.collect { |item| item.to_builder.attributes! },
+                                                  allow_promotion_codes: true,
                                                   payment_method_types: [
                                                     'card',
                                                   ],
