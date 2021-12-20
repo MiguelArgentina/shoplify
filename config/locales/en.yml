@@ -31,3 +31,8 @@
 
 en:
   hello: "Hello world"
+  active_admin:
+    dashboard: Dashboard
+    dashboard_welcome:
+      welcome: Welcome
+      call_to_action: To add dashboard sections, checkout 'app/admin/dashboard.rb'

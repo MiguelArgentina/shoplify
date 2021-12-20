@@ -1,25 +1,17 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[ show edit update destroy ]
 
-
-  def add_to_cart
-    id = params[:id].to_i
-    session[:cart] << id unless session[:cart].include?(id)
-    redirect_to products_path
-  end
-
-  def remove_from_cart
-    id = params[:id].to_i
-    session[:cart].delete(id) if session[:cart].include?(id)
-    redirect_to products_path
-  end
   # GET /products or /products.json
   def index
     @products = Product.all
+    @render_admin_options = current_admin_user.present?
+    puts "..::..::.."
+    puts @render_admin_options
+    puts "..::..::.."
   end
 
   # GET /products/1 or /products/1.json
   def show
+    @product = Product.find(params[:id])
   end
 
   # GET /products/new
@@ -29,6 +21,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+    @product = Product.find(params[:id])
   end
 
   # POST /products or /products.json
@@ -48,7 +41,6 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
-    puts ".......price_updated"
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to @product, notice: "Product was successfully updated." }
@@ -70,11 +62,6 @@ class ProductsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
-
     # Only allow a list of trusted parameters through.
     def product_params
       params.require(:product).permit(:name, :price_cents, :price)

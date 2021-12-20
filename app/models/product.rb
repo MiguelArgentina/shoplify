@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
   validates :name, :price, presence: true
   validates :price, numericality: {greater_than: 0, less_than: 10000000}
-
+  has_many :line_items, dependent: :destroy
   monetize :price, as: :price_cents
 
   def to_s
