@@ -1,33 +1,85 @@
 
-  <h2>Cart show</h2>
-  <ul>
-    <% @cart.line_items.each do |line_item| %>
-      <li>Item: <%= line_item.product.name %>/ Price: <%= number_to_currency(line_item.product.price) %>/ Quantity: <%= line_item.quantity %>/ Total Price: <%= number_to_currency(line_item.total_price) %>
-      <ul>
-        <li>
-          <%= link_to "Add one", line_item_add_path(:id => line_item), method: :post %>
-          <%= link_to "Reduce one", line_item_reduce_path(:id => line_item), method: :post %>
-        </li>
-        <li>
-          <%= link_to "Remove item", line_item_path(line_item), method: :delete %>
-        </li>
-      </ul>
-    <% end %>
-  </ul>
-  <h3>Sub total: <%= number_to_currency(@cart.sub_total) %></h3>
-  <%= link_to "Proceed to checkout", new_order_path %><br>
-  <%= link_to "Empty cart", cart_path(@current_cart),method: :delete, data: {confirm: "Are you sure?"} %>
-<div class="d-flex">
-                  <div class="m-4">
-                    <%= link_to cart_path(@current_cart), alt:"",class:"title", data: {"-abc": "true" } do %>
-                      <span class="rated me-3">
-                          <%= image_tag "PP-logo.png", height:"16" %>
-                      </span>
+<div class="container-fluid d-block">
+
+  <div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-center row">
+          <div class="col-md-8">
+              <div class="p-2">
+                  <h4>Shopping cart</h4>
+              </div>
+
+
+            <div class="d-flex">
+              <span class="col-5">Product</span>
+              <span class="col-2">Unit price</span>
+              <span class="col-3">Quantity</span>
+              <span class="col-2">Subtotal</span>
+            </div>
+              
+            <% @cart.line_items.each do |line_item| %>
+
+              <div class="d-flex flex-row border-bottom justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded">
+                <div class="product-name col-5 d-flex align-items-center">
+                  <div class="mr-1">
+                    <%= image_tag 'plantines_test.jpeg', class:'rounded', width:"70" %>
+                  </div>
+                  <div class="d-flex flex-column align-items-center product-details ms-3">
+                    <span class="font-weight-bold">
+                      <%= line_item.product.name %>
+                    </span>
+                    <div class="d-flex flex-row product-desc">
+                      <div class="size mr-1">
+                        <span class="text-grey">Category</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="product-price col-2">
+                  <h5 class="text-grey">
+                    <%= number_to_currency(line_item.product.price) %>
+                  </h5>
+                </div>
+                  <div class="d-flex flex-row qty product-qtty col-3">
+                    <%= link_to line_item_reduce_path(:id => line_item), method: :post do %>
+                      <i class="fa fa-minus text-danger"></i>
                     <% end %>
-                    <span class="border-end"></span>
-                    <%= link_to cart_path(@current_cart), alt:"",class:"title", data: {"-abc": "true" } do %>
-                      <span class="ms-3 rated">
-                        <%= image_tag "MP-logo.png", height:"16" %>
-                      </span>
+
+                    <h5 class="text-grey mx-3">
+                      <%= line_item.quantity %>
+                    </h5>
+
+                    <%= link_to line_item_add_path(:id => line_item), method: :post do %>
+                      <i class="fa fa-plus text-success"></i>
                     <% end %>
                   </div>
+                  <div class="product-total-price col-2 d-flex justify-content-between">
+                    <h5 class="text-grey">
+                      <%= number_to_currency(line_item.total_price) %>
+                    </h5>
+                  
+                    <%= link_to line_item_path(line_item), method: :delete do %>
+                      <i class="fa fa-trash mb-1 text-danger"></i>
+                    <% end %>
+                  </div>
+          </div>
+        <% end %>
+
+
+      </div>
+      <div class="d-flex justify-content-around align-items-center mt-3">
+        <div class="d-flex flex-row align-items-center bg-white border border-success rounded">
+          <%= link_to 'Proceed to checkout', new_order_path, class:'btn btn-light btn-sm' %>
+        </div>
+        <div class='bg-light rounded btn-sm p-2' >
+          Sub total: <%= number_to_currency(@cart.sub_total) %>
+        </div>
+      </div>
+      <div class="mt-3 d-flex justify-content-end">
+        <%= link_to cart_path(@current_cart), class:"text-danger rounded bg-light p-2",method: :delete, data: {confirm: "Are you sure?"} do %>
+          Empty cart
+          <i class="fa fa-trash ms-2 mb-1 text-danger"></i>
+        <% end %>
+      </div>
+  </div>
+
+</div>

@@ -1,0 +1,8 @@
+ <% if current_user %>
+      <%= link_to current_user.email, edit_user_registration_path %>
+      <%= link_to "Log out", destroy_user_session_path, class:"mx-2   badge rounded-pill bg-danger btn-sm text-white text-decoration-none fst-lighter", method: :delete %>
+    <% else %>
+      <%= link_to "Log in", new_user_session_path, class:"badge rounded-pill bg-primary btn-sm text-white text-decoration-none fst-lighter" %>
+      <%= link_to "Log in as Admin", new_admin_user_session_path, class:"badge rounded-pill bg-secondary btn-sm text-white text-decoration-none fst-lighter" %>
+      <%= link_to "Register", new_user_registration_path, class:"badge rounded-pill bg-success btn-sm text-white text-decoration-none fst-lighter" %>
+    <% end %>

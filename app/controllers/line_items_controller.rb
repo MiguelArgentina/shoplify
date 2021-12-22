@@ -19,7 +19,7 @@ def create
 
   # Save and redirect to cart show path
   @line_item.save
-  redirect_to cart_path(current_cart)
+  redirect_to products_path
 end
 
 def destroy

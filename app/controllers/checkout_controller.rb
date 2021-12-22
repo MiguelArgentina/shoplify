@@ -1,7 +1,11 @@
 class CheckoutController < ApplicationController
 
   def create
-
+#MP:
+#public:
+#TEST-94fde7e0-f023-4c71-aa99-b9908f77f094
+#acces token
+#TEST-8730493886441562-102901-f24bf10ddecd448cada9598198fc7f74-73311769
     @session = Stripe::Checkout::Session.create({
                                                   customer: current_user.stripe_customer_id,
                                                   line_items: @cart.collect { |item| item.to_builder.attributes! },

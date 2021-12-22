@@ -10,27 +10,24 @@
     <title>Shoplify</title>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+    <script src="https://sdk.mercadopago.com/js/v2"></script> 
   </head>
 
   <body>
   <div class="container-fluid">
     <%= render './layouts/notices', notice: notice, alert: alert %> 
 
-    <% if current_user %>
-      <%= link_to current_user.email, edit_user_registration_path %>
-      <%= link_to "Log out", destroy_user_session_path, class:"mx-2   badge rounded-pill bg-danger btn-sm text-white text-decoration-none fst-lighter", method: :delete %>
-    <% else %>
-      <%= link_to "Log in", new_user_session_path, class:"badge rounded-pill bg-primary btn-sm text-white text-decoration-none fst-lighter" %>
-      <%= link_to "Log in as Admin", new_admin_user_session_path, class:"badge rounded-pill bg-secondary btn-sm text-white text-decoration-none fst-lighter" %>
-      <%= link_to "Register", new_user_registration_path, class:"badge rounded-pill bg-success btn-sm text-white text-decoration-none fst-lighter" %>
-    <% end %>
-
+    <%= link_to "Products index", products_path %>
+  <div class="container-fluid d-flex">
+    <%= render 'layouts/sidebar'%>
     <%= yield %>
+  </div>
     
     <br> <br>
     <hr>
     
-    <%= link_to "Products index", products_path %>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </div>
   </body>

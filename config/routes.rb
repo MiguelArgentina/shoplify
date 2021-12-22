@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :webhooks, only: [:create]
   get 'success', to: 'checkout#success'
   get 'failure', to: 'checkout#failure'
+
+  get 'mp', to: 'mercado_pago#mp_payment'
   
   get 'carts/:id' => "carts#show", as: "cart"
   delete 'carts/:id' => "carts#destroy"
