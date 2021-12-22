@@ -71,7 +71,7 @@
           <%= link_to 'Proceed to checkout', new_order_path, class:'btn btn-light btn-sm' %>
         </div>
         <div class='bg-light rounded btn-sm p-2' >
-          Sub total: <%= number_to_currency(@cart.sub_total) %>
+          Total: <%= number_to_currency(@cart.sub_total) %>
         </div>
       </div>
       <div class="mt-3 d-flex justify-content-end">

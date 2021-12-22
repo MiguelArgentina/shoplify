@@ -1,12 +1,10 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_admin_user!, except: [:index, :show]
 
   # GET /products or /products.json
   def index
     @products = Product.all
     @render_admin_options = current_admin_user.present?
-    puts "..::..::.."
-    puts @render_admin_options
-    puts "..::..::.."
   end
 
   # GET /products/1 or /products/1.json

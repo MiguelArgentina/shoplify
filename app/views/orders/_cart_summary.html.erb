@@ -1,0 +1,56 @@
+<div class="container cart-summary-partial mt-5 mb-5 border border-light pb-1 rounded">
+    <div class="d-flex justify-content-start row">
+      <div class="col-12 col-md-10">
+        <div class="p-2">
+            <h4>Cart summary</h4>
+        </div>
+        <div class="d-flex">
+          <span class="col-5">Product</span>
+          <span class="col-2">Unit price</span>
+          <span class="col-3">Quantity</span>
+          <span class="col-2">Subtotal</span>
+        </div>
+        <% @cart.line_items.each do |line_item| %>
+          <div class="d-flex flex-row border-bottom justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded">
+              <div class="product-name col-5 d-flex align-items-center">
+                <div class="mr-1">
+                  <%= image_tag 'plantines_test.jpeg', class:'rounded', width:"70" %>
+                </div>
+                <div class="d-flex flex-column align-items-center product-details ms-3">
+                  <span class="font-weight-bold">
+                    <%= line_item.product.name %>
+                  </span>
+                  <div class="d-flex flex-row product-desc">
+                    <div class="size mr-1">
+                      <span class="text-grey">Category</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="product-price col-2">
+                <h5 class="text-grey">
+                  <%= number_to_currency(line_item.product.price) %>
+                </h5>
+              </div>
+              <div class="d-flex flex-row qty product-qtty col-3">
+                <h5 class="text-grey mx-3">
+                  <%= line_item.quantity %>
+                </h5>
+              </div>
+              <div class="product-total-price col-2 d-flex justify-content-between">
+                <h5 class="text-grey">
+                  <%= number_to_currency(line_item.total_price) %>
+                </h5>
+              </div>
+            </div>
+        <% end %>
+      </div>
+      <div class="d-flex justify-content-around align-items-center mt-3">
+        <div class="d-flex flex-row align-items-center bg-white border border-success rounded">
+        </div>
+        <div class='bg-light rounded btn-sm p-2' >
+          Total: <%= number_to_currency(@cart.sub_total) %>
+        </div>
+      </div>
+    </div>
+</div>

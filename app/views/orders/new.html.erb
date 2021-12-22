@@ -1,14 +1,15 @@
-<div class="container-fluid">
+<div class="container-fluid new-order">
   <h1>Crear un nuevo pedido</h1>
-  <div class="form-group">
-  <%= simple_form_for(@order) do |f| %>
+  <div class="cart-summary">
+    <%= render "orders/cart_summary" %>
+  </div>
+  <div class="form-group  col-12 col-md-10 border-top border-primary mt-3 py-4">
+    <%= simple_form_for(@order) do |f| %>
+        <%= f.input :name %>
+        <%= f.input :email %>
+        <%= f.input :address %>
 
-      <%= f.input :name %>
-      <%= f.input :email %>
-      <%= f.input :address %>
-
-      <%= f.button :submit, class:"mt-2 btn btn-success" %>
-
-  <% end %>
+        <%= f.button :submit, class:"mt-2 btn btn-success" %>
+    <% end %>
   </div>
 </div>
