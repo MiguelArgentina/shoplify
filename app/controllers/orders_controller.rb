@@ -1,6 +1,8 @@
 class OrdersController < ApplicationController
+
   def index
-    @orders = Order.all
+    @orders = nil
+    @orders = Order.where(email: current_user.email).order(created_at: :desc) if current_user
   end
 
   def show
@@ -21,7 +23,12 @@ class OrdersController < ApplicationController
     @order.save
     Cart.destroy(session[:cart_id])
     session[:cart_id] = nil
-    redirect_to root_path
+    redirect_to order_pay_order_path(@order)
+  end
+
+  def choose_payment_method
+    @order = Order.find(params[:order_id])
+    @line_items = @order.line_items
   end
 
   private

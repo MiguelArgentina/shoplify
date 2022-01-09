@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <h2 class="mb-4"> Products array to pay </h2>
+  <ul>
+    <% @line_items.each do |li| %>
+      <h4> Line item <%= li.id %></h4>
+      <li>
+        <div class="d-flex m-2">
+          <p class="m-1">Product: <%= li.product.name %></p>
+          <p class="m-1">Price: <%= li.product.price %></p>
+          <p class="m-1">Qtty: <%= li.quantity %></p>
+          <p class="m-1">Total: <%= li.total_price %></p>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<div class="d-block">
+  <div>Choose your payment method:</div>
+  <%= link_to "Pay with Stripe", checkout_index_path(order_id: @order), method: 'post', class:"btn btn-info" %>
+  <%= link_to "Pay with Mercadopago", mp_path(order_id: @order), class:"btn btn-success" %>
+</div>
+</div>

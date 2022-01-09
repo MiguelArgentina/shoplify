@@ -15,6 +15,7 @@ def create
     @line_item = LineItem.new
     @line_item.cart = current_cart
     @line_item.product = chosen_product
+    @line_item.price = chosen_product.price
   end
 
   # Save and redirect to cart show path

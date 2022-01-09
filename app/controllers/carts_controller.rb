@@ -1,9 +1,6 @@
 class CartsController < ApplicationController
   def show
     @cart = @current_cart
-    puts "--___---"
-    puts @cart.line_items.inspect
-    puts "--___---"
   end
 
   def destroy
