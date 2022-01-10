@@ -8,6 +8,7 @@
 AdminUser.destroy_all
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development? && AdminUser.find_by(id:'admin@example.com').present?
 
+
 # PRODUCT
 Product.destroy_all
 product1 = Product.create({:name=>"tomato", :price => 100})
